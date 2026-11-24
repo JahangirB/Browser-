@@ -1,0 +1,39 @@
+services:
+  rbi:
+    build: .
+    image: private-rbi:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TRUST_PROXY: "1"
+    expose:
+      - "8080"            # reachable only by Caddy on the internal network
+    volumes:
+      - rbi-data:/data    # Chromium profile (cookies, logins, tabs) + session key
+    shm_size: "1gb"       # Chromium needs a real /dev/shm
+    mem_limit: 8g         # leaves ~4 GB for the OS + Caddy on a 12 GB A1 VM
+    pids_limit: 2048
+    stop_grace_period: 30s  # let Chromium flush cookies to disk on shutdown
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+
+  caddy:
+    image: caddy:2.10.2
+    restart: unless-stopped
+    depends_on: [rbi]
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data   # TLS certificates
+      - caddy-config:/config
+
+volumes:
+  rbi-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sign in</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login">
+  <form method="post" action="/login" class="card">
+    <h1>Private browser</h1>
+    <label for="pw">Password</label>
+    <input id="pw" name="password" type="password" autocomplete="current-password" required autofocus>
+    <button type="submit">Sign in</button>
+    <p class="err" id="err" hidden></p>
+  </form>
+  <script src="/login.js"></script>
+</body>
+</html>

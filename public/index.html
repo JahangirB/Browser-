@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Private browser</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="app">
+  <div id="tabs" class="tabs" role="tablist"></div>
+  <form id="bar" class="bar" autocomplete="off">
+    <button type="button" id="back" title="Back (Alt+←)" aria-label="Back">&#8592;</button>
+    <button type="button" id="fwd" title="Forward (Alt+→)" aria-label="Forward">&#8594;</button>
+    <button type="button" id="reload" title="Reload" aria-label="Reload">&#8635;</button>
+    <input id="url" type="text" spellcheck="false" placeholder="Search or enter address" aria-label="Address">
+    <button type="button" id="paste" title="Paste your clipboard into the remote page">Paste</button>
+    <button type="button" id="copy" title="Copy the remote selection to your clipboard">Copy</button>
+    <button type="button" id="full" title="Full screen" aria-label="Full screen">&#x26F6;</button>
+    <button type="button" id="logout" title="Sign out">Sign out</button>
+  </form>
+  <main id="stage">
+    <canvas id="screen" tabindex="0" aria-label="Remote browser"></canvas>
+    <div id="overlay" class="overlay">Connecting&hellip;</div>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+  <form id="logoutForm" method="post" action="/logout" hidden></form>
+  <script src="/app.js"></script>
+</body>
+</html>
